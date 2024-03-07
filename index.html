@@ -25,13 +25,7 @@
 
 	<script>
 
-poletest = [{"text":"tomik","color":"blue"},{"text":"prdel","color":"red"}]
-//
-//console.log(poletest);
-//
-//const nevim = JSON.stringify(poletest);
-//
-//console.log(nevim);
+		poletest = [{ "text": "tomik", "color": "blue" }, { "text": "prdel", "color": "red" }]
 
 		const textarea = document.getElementById("textarea")
 		const zobrazeni = document.getElementById("seznam")
@@ -42,11 +36,7 @@ poletest = [{"text":"tomik","color":"blue"},{"text":"prdel","color":"red"}]
 		const title = "agrE"
 		const description = "agrE"
 
-		//		console.log(textarea);
-		//		console.log(zobrazeni);
-
 		textarea.addEventListener("input", (udalost) => {
-			//			console.log(textarea.value);
 
 			value = textarea.value
 
@@ -54,17 +44,9 @@ poletest = [{"text":"tomik","color":"blue"},{"text":"prdel","color":"red"}]
 			value3 = value2.trim();
 			value3 = value3.replaceAll(" ", "")
 
-			//console.log(value3);
-
 			jmena = value3.split('<br>');
 
-			//console.log(jmena);
-
-			//console.log(result);
-
 			zobrazeni.innerHTML = value2;
-
-			//console.log(zobrazeni.innerText);
 		})
 
 		tlacitko.addEventListener("click", async () => {
@@ -79,7 +61,7 @@ poletest = [{"text":"tomik","color":"blue"},{"text":"prdel","color":"red"}]
 
 			stoprocent = delkapole + 1;
 
-			procentojmena = (1/stoprocent) * 100
+			procentojmena = (1 / stoprocent) * 100
 
 			jmena.forEach((jmeno, index) => {
 				let randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
@@ -89,19 +71,18 @@ poletest = [{"text":"tomik","color":"blue"},{"text":"prdel","color":"red"}]
 
 
 				pole2 = {
-						"text":`${jmeno}`,
-						"color":`rgb(${r},${g},${b})`,
-						"weight": Math.round(procentojmena)
-						}
+					"text": `${jmeno}`,
+					"color": `rgb(${r},${g},${b})`,
+					"weight": Math.round(procentojmena)
+				}
 
 				pole.push(pole2);
 			});
 
-			//console.log(JSON.stringify(pole));
-
 			const url = 'https://wheelofnames.com/api/wheels/shared';
 			const options = {
 				method: 'POST',
+				mode: "no-cors",
 				headers: { 'x-api-key': 'e8cf27e7-135c-4191-be79-854ba5f85305', 'Content-Type': 'application/json' },
 				body: `{"wheelConfig":{"description":"${title}","title":"${description}","launchConfetti":true, "isAdvanced":true,"entries":${JSON.stringify(pole)}},"shareMode":"gallery"}`
 			};
@@ -129,48 +110,48 @@ poletest = [{"text":"tomik","color":"blue"},{"text":"prdel","color":"red"}]
 		}
 
 		button {
-  background-color: #000000; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-}
+			background-color: #000000;
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			cursor: pointer;
+		}
 
-button {
-  transition-duration: 0.4s;
-}
+		button {
+			transition-duration: 0.4s;
+		}
 
-button:hover {
-  background-color: #ffffff; /* Green */
-  color: rgb(0, 0, 0);
-}
+		button:hover {
+			background-color: #ffffff;
+			color: rgb(0, 0, 0);
+		}
 
-.seznam {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
+		.seznam {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
 
-#odkaz {
-	width: 100%;
-	padding: 10px;
-	text-align: center;
-}
+		#odkaz {
+			width: 100%;
+			padding: 10px;
+			text-align: center;
+		}
 
-#odkaz a {
-	text-decoration: none;
-	color: black;
-	font-size: 30px;
-	text-align: center;
-}
+		#odkaz a {
+			text-decoration: none;
+			color: black;
+			font-size: 30px;
+			text-align: center;
+		}
 
-#odkaz a:hover {
-	color: darkblue;
-}
+		#odkaz a:hover {
+			color: darkblue;
+		}
 	</style>
 </body>
 
