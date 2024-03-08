@@ -129,7 +129,7 @@ if (array_key_exists("odeslat", $_POST)) {
 
       const body2 = document.getElementById("body")
 
-      let body = `{"wheelConfig":{"description":"${title}","title":"${description}","launchConfetti":true, "entries":${JSON.stringify(pole)}},"shareMode":"gallery"}`
+      let body = `{"wheelConfig":{"description":"${description}","title":"${title}","launchConfetti":true, "entries":${JSON.stringify(pole)}},"shareMode":"gallery"}`
 
       body2.value = body;
 
