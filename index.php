@@ -16,6 +16,8 @@ if (array_key_exists("odeslat", $_POST)) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+
+  <link href="./fontawesome/css/all.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -61,7 +63,7 @@ if (array_key_exists("odeslat", $_POST)) {
   </div>
   <div class="seznam">
     <textarea name="body" id="body" cols="30" rows="10"></textarea>
-    <button id="copy" name="odeslat">Vygenerovat kolo</button>
+    <button id="copy" name="odeslat" class="button">Vygenerovat kolo</button>
     </form>
 
     <div id="odkaz">
@@ -70,7 +72,7 @@ if (array_key_exists("odeslat", $_POST)) {
 
     <div id="seznam">
       <?php
-        echo str_replace(";", "<br>", $jmena);
+      echo str_replace(";", "<br>", $jmena);
       ?>
     </div>
   </div>
@@ -78,7 +80,6 @@ if (array_key_exists("odeslat", $_POST)) {
   <script>
     const textarea = document.getElementById("textarea")
     const zobrazeni = document.getElementById("seznam")
-    const tlacitko = document.getElementById("copy")
 
     const title = "agrE"
     const description = "agrE"
@@ -89,28 +90,19 @@ if (array_key_exists("odeslat", $_POST)) {
 
       value2 = value.replaceAll(";", "<br>")
       value3 = value2.trim();
-      //value3 = value3.replaceAll(" ", "")
 
       jmena = value3.split('<br>');
-
-      //console.log(jmena);
 
       jmena2 = [];
 
       jmena.forEach((jmeno, index) => {
 
-        //console.log(jmeno);
-
         jmeno = jmeno.trim();
-
-        //console.log(jmeno);
 
         jmena2.push(jmeno);
       })
 
       jmena = jmena2.filter((word) => word.length > 2);
-
-      //console.log(jmena);
 
       zobrazeni.innerHTML = value2;
 
@@ -151,8 +143,16 @@ if (array_key_exists("odeslat", $_POST)) {
     <script>
       const odkaz = document.getElementById("odkaz");
       const odkaz2 = <?php echo $response ?>;
-      console.log(odkaz2);
-      odkaz.innerHTML = `<a href='https://wheelofnames.com/en/${odkaz2.data.path}' target='_blank' >Sem klikni troubo</a>`;
+      odkaz.innerHTML = `<a href='https://wheelofnames.com/en/${odkaz2.data.path}' target='_blank' >Sem klikni troubo</a><br><span id="myText" class='link'>https://wheelofnames.com/en/${odkaz2.data.path}</span> <button class="button2" onclick="copyContent()"><i class="fa-regular fa-copy"></i></button>`;
+      let text = document.getElementById('myText').innerHTML;
+      const copyContent = async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+          console.log('Content copied to clipboard');
+        } catch (err) {
+          console.error('Failed to copy: ', err);
+        }
+      }
     </script>
 
   <?php
@@ -177,7 +177,7 @@ if (array_key_exists("odeslat", $_POST)) {
       text-align: center;
     }
 
-    button {
+    .button {
       background-color: #000000;
       border: none;
       color: white;
@@ -189,11 +189,22 @@ if (array_key_exists("odeslat", $_POST)) {
       cursor: pointer;
     }
 
-    button {
+    .button2 {
+      border: none;
+      background-color: #ffffff00;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .button2:hover {
+      color: darkblue;
+    }
+
+    .button, .button2 {
       transition-duration: 0.4s;
     }
 
-    button:hover {
+    .button:hover {
       background-color: #ffffff;
       color: rgb(0, 0, 0);
     }
@@ -223,6 +234,10 @@ if (array_key_exists("odeslat", $_POST)) {
 
     #body {
       display: none;
+    }
+
+    .link {
+      font-size: 25px;
     }
   </style>
 </body>
