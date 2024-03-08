@@ -9,10 +9,11 @@
 
 <body>
 	<div>
+		<h1>Sem nakopíruj seznam</h1>
 		<textarea id="textarea" cols="50" rows="30"></textarea>
 	</div>
 	<div class="seznam">
-		<button id="copy">Vygenerovat seznam</button>
+		<button id="copy">Vygenerovat kolo</button>
 
 		<div id="odkaz">
 
@@ -24,8 +25,6 @@
 	</div>
 
 	<script>
-
-		poletest = [{ "text": "tomik", "color": "blue" }, { "text": "prdel", "color": "red" }]
 
 		const textarea = document.getElementById("textarea")
 		const zobrazeni = document.getElementById("seznam")
@@ -42,24 +41,37 @@
 
 			value2 = value.replaceAll(";", "<br>")
 			value3 = value2.trim();
-			value3 = value3.replaceAll(" ", "")
+			//value3 = value3.replaceAll(" ", "")
 
 			jmena = value3.split('<br>');
+
+			//console.log(jmena);
+
+			jmena2 = [];
+
+			jmena.forEach((jmeno,index) => {
+
+				//console.log(jmeno);
+
+				jmeno = jmeno.trim();
+
+				//console.log(jmeno);
+
+				jmena2.push(jmeno);
+			})
+
+			jmena = jmena2.filter((word) => word.length > 2);
+
+			//console.log(jmena);
 
 			zobrazeni.innerHTML = value2;
 		})
 
 		tlacitko.addEventListener("click", async () => {
 
-			jmena = value3.split('<br>');
-
-			jmena = jmena.filter((word) => word.length > 2);
-
 			const pole = [];
 
-			let delkapole = jmena.length;
-
-			stoprocent = delkapole + 1;
+			let stoprocent = jmena.length;
 
 			procentojmena = (1 / stoprocent) * 100
 
@@ -68,7 +80,6 @@
 				let r = randomBetween(0, 255);
 				let g = randomBetween(0, 255);
 				let b = randomBetween(0, 255);
-
 
 				pole2 = {
 					"text": `${jmeno}`,
@@ -83,22 +94,19 @@
 			const options = {
 				method: 'POST',
 				//mode: "no-cors",
-				headers: { 'x-api-key': 'e8cf27e7-135c-4191-be79-854ba5f85305', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-				body: `{"wheelConfig":{"description":"${title}","title":"${description}","launchConfetti":true, "isAdvanced":true,"entries":${JSON.stringify(pole)}},"shareMode":"gallery"}`
+				headers: { 'x-api-key': 'e8cf27e7-135c-4191-be79-854ba5f85305', 'Content-Type': 'application/json' },
+				body: `{"wheelConfig":{"description":"${title}","title":"${description}","launchConfetti":true, "entries":${JSON.stringify(pole)}},"shareMode":"gallery"}`
 			};
 
 			try {
 				const response = await fetch(url, options);
 				const data = await response.json();
 				console.log(data);
-				odkaz.innerHTML = `<a href='https://wheelofnames.com/en/${data.data.path}' >Sem klikni troubo</a>`
-
+				odkaz.innerHTML = `<a href='https://wheelofnames.com/en/${data.data.path}' target='_blank' >Sem klikni troubo</a>`
 			} catch (error) {
 				console.error(error);
 			}
 		});
-
-
 	</script>
 
 	<style>
@@ -107,6 +115,16 @@
 			justify-content: space-evenly;
 			background-image: url("maxresdefault.jpg");
 			background-size: cover;
+			background-position: center;
+		}
+
+		textarea {
+			background-color: rgba(255, 255, 255, 0.581);
+			border: 1px solid black;
+		}
+
+		h1 {
+			text-align: center;
 		}
 
 		button {
