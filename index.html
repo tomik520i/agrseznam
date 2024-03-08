@@ -82,8 +82,8 @@
 			const url = 'https://wheelofnames.com/api/wheels/shared';
 			const options = {
 				method: 'POST',
-				mode: "no-cors",
-				headers: { 'x-api-key': 'e8cf27e7-135c-4191-be79-854ba5f85305', 'Content-Type': 'application/json' },
+				//mode: "no-cors",
+				headers: { 'x-api-key': 'e8cf27e7-135c-4191-be79-854ba5f85305', 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
 				body: `{"wheelConfig":{"description":"${title}","title":"${description}","launchConfetti":true, "isAdvanced":true,"entries":${JSON.stringify(pole)}},"shareMode":"gallery"}`
 			};
 
